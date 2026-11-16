@@ -1,0 +1,16 @@
+<h1>Contact page</h1>
+
+<%# A GET form puts named inputs in the URL as query parameters. %>
+<form action="<%= contact_path %>" method="get">
+  <label for="employee">Who are you looking for?</label>
+  <input type="text" id="employee" name="employee" value="<%= params[:employee] %>" placeholder="e.g. Ch">
+  <input type="submit" value="Search">
+</form>
+
+<ol>
+  <% @members.each do |member| %>
+    <li><%= member %></li>
+  <% end %>
+</ol>
+
+<%= link_to "Go to About Us", about_us_path %>

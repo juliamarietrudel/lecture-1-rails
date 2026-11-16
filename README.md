@@ -1,24 +1,36 @@
-# README
+# Lecture 1: Rails basics
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A small application demonstrating the request cycle: route → controller → view.
 
-Things you may want to cover:
+## Run locally
 
-* Ruby version
+Use Ruby 3.4.2 (see `.ruby-version`), then run:
 
-* System dependencies
+```sh
+bundle install
+bin/rails db:prepare
+bin/rails server
+```
 
-* Configuration
+Open http://localhost:3000.
 
-* Database creation
+## Follow a request
 
-* Database initialization
+1. `config/routes.rb` maps `/contact` to `PagesController#contact`.
+2. `app/controllers/pages_controller.rb` sets `@members` and filters it when a search is submitted.
+3. `app/views/pages/contact.html.erb` displays the form and matching members.
 
-* How to run the test suite
+Try searching for `Ch` to display Charles. Matching uses `start_with?`, so it is
+case-sensitive and checks the beginning of each name. An empty search shows everyone.
 
-* Services (job queues, cache servers, search engines, etc.)
+The form uses GET, so a search appears in the URL as `/contact?employee=Ch`.
+The input's `name="employee"` becomes `params[:employee]` in the controller.
 
-* Deployment instructions
+In ERB views, `<% ... %>` runs Ruby and `<%= ... %>` displays its result.
+Rails helpers such as `link_to` use named routes such as `contact_path`.
 
-* ...
+## Pages
+
+- `/`: home
+- `/about-us`: about
+- `/contact`: member search
